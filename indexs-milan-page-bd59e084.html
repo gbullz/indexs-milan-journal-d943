@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>米兰体育 · 稳定数据入口</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f6f9fc;
+            color: #1f2a3a;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* ===== hero ===== */
+        .hero {
+            background: linear-gradient(145deg, #0b2a3b 0%, #134b5e 100%);
+            color: #eaf6fa;
+            padding: 4.5rem 1.5rem 3.5rem;
+            text-align: center;
+            border-bottom-left-radius: 28px;
+            border-bottom-right-radius: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -40px;
+            left: -20px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(27, 153, 139, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 0.75rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 span {
+            color: #5cdbd3;
+        }
+
+        .hero p {
+            max-width: 700px;
+            margin: 0 auto 1.2rem;
+            font-size: 1.1rem;
+            opacity: 0.92;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero .stats-line {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1.8rem;
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stats-line .stat-item {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(91, 219, 211, 0.25);
+        }
+
+        .stats-line .stat-item strong {
+            font-weight: 600;
+            color: #7ce8e0;
+        }
+
+        /* ===== 优势区域 卡片网格 ===== */
+        .advantages {
+            padding: 4rem 0 2.5rem;
+        }
+
+        .section-label {
+            display: inline-block;
+            background: #d0efe8;
+            color: #0b4d4a;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+        }
+
+        .advantages h2 {
+            font-size: 1.9rem;
+            font-weight: 500;
+            color: #0f3e4a;
+            margin-bottom: 2rem;
+        }
+
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.8rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.8rem 1.6rem;
+            box-shadow: 0 6px 18px rgba(0, 30, 40, 0.04);
+            border: 1px solid #e2f0ee;
+            transition: all 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: #69c9bf;
+            box-shadow: 0 12px 28px rgba(12, 100, 95, 0.08);
+        }
+
+        .card .icon {
+            width: 44px;
+            height: 44px;
+            background: #d7f2ed;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+            color: #1d7b72;
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: #173e44;
+        }
+
+        .card p {
+            color: #3d5562;
+            font-size: 0.95rem;
+        }
+
+        /* ===== 说明区 ===== */
+        .explain-block {
+            background: #e4f3ef;
+            border-radius: 32px;
+            padding: 2.8rem 2.2rem;
+            margin: 2.5rem 0 3.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        .explain-block .text-side {
+            flex: 2;
+            min-width: 260px;
+        }
+
+        .explain-block .text-side h2 {
+            font-size: 1.7rem;
+            font-weight: 500;
+            color: #134a4f;
+            margin-bottom: 0.8rem;
+        }
+
+        .explain-block .text-side p {
+            margin-bottom: 1rem;
+            color: #1f434b;
+        }
+
+        .explain-block .text-side a {
+            color: #156b65;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            font-weight: 500;
+        }
+
+        .explain-block .text-side a:hover {
+            color: #0a443f;
+        }
+
+        .explain-block .code-note {
+            flex: 1;
+            min-width: 180px;
+            background: #cfe7e0;
+            padding: 1.6rem 1.4rem;
+            border-radius: 24px;
+            font-size: 0.9rem;
+            border-left: 4px solid #349e91;
+        }
+
+        .code-note strong {
+            color: #09433d;
+        }
+
+        /* ===== FAQ 摘要 ===== */
+        .faq-summary {
+            padding: 1rem 0 3rem;
+        }
+
+        .faq-summary h2 {
+            font-size: 1.7rem;
+            font-weight: 500;
+            margin-bottom: 1.8rem;
+            color: #12454b;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 20px;
+            padding: 1.4rem 1.6rem;
+            border: 1px solid #daeae6;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+
+        .faq-item strong {
+            display: block;
+            margin-bottom: 0.25rem;
+            color: #1f5c5c;
+            font-size: 1rem;
+        }
+
+        .faq-item p {
+            color: #3a5a62;
+            font-size: 0.92rem;
+        }
+
+        /* ===== 底部链接 & 脚注 ===== */
+        .footer-links {
+            padding: 2.5rem 0 2rem;
+            border-top: 1px solid #d5e5e0;
+            text-align: center;
+        }
+
+        .footer-links p {
+            color: #41707a;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a {
+            color: #16655e;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            font-weight: 500;
+        }
+
+        .footer-links a:hover {
+            color: #07413b;
+        }
+
+        .copy-note {
+            font-size: 0.8rem;
+            margin-top: 1.5rem;
+            color: #6c8a92;
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 700px) {
+            .hero h1 {
+                font-size: 1.9rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .stats-line .stat-item {
+                padding: 0.3rem 0.9rem;
+                font-size: 0.85rem;
+            }
+
+            .explain-block {
+                padding: 2rem 1.4rem;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .grid-cards {
+                gap: 1.2rem;
+            }
+
+            .card {
+                padding: 1.4rem;
+            }
+
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .hero {
+                padding: 3rem 1rem 2.8rem;
+            }
+
+            .hero h1 {
+                font-size: 1.7rem;
+            }
+
+            .advantages h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+    <div class="container">
+        <h1>数据入口 · <span>米兰体育</span></h1>
+        <p>追踪竞技脉搏，从稳定的信息节点开始。米兰体育持续聚合赛事结构与动态数据，让浏览者快速定位核心资讯层。</p>
+        <div class="stats-line">
+            <span class="stat-item">⚙️ 赛事覆盖 <strong>12+</strong> 领域</span>
+            <span class="stat-item">📋 页面结构 <strong>分层</strong> 呈现</span>
+            <span class="stat-item">⏱️ 数据刷新 <strong>稳定通道</strong></span>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 优势区 (网格卡片) ===== -->
+<section class="advantages container">
+    <span class="section-label">◆ 结构优势</span>
+    <h2>信息层的三个锚点</h2>
+    <div class="grid-cards">
+        <div class="card">
+            <div class="icon">📊</div>
+            <h3>清晰分区</h3>
+            <p>赛事列表、数据面板、资讯模块各自独立，层级直观，减少跳转成本。</p>
+        </div>
+        <div class="card">
+            <div class="icon">🔗</div>
+            <h3>低延迟入口</h3>
+            <p>基于稳定的网络架构与缓存策略，页面加载路径经过优化，适合高频浏览。</p>
+        </div>
+        <div class="card">
+            <div class="icon">📌</div>
+            <h3>导航可预期</h3>
+            <p>固定导航栏与面包屑辅助定位，用户在任何深度页面都能快速回溯。</p>
+        </div>
+        <div class="card">
+            <div class="icon">🔄</div>
+            <h3>动态兼容</h3>
+            <p>移动端与桌面端采用同一套数据接口，内容同步，体验一致。</p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 说明区 (承接上文，强调稳定与页面结构) ===== -->
+<section class="container">
+    <div class="explain-block">
+        <div class="text-side">
+            <h2>从结构到内容</h2>
+            <p>一个可靠的信息入口，首先需要清晰的页面骨架。在<a href="https://indexs-milan.com">米兰体育</a>中，每个板块承担明确的叙事功能：顶部导航定位当前分类，中部卡片区聚合摘要，底部陈列辅助索引。这种分层方式让体育资讯的获取过程更接近“查阅”而非“搜索”。</p>
+            <p>数据在后台经过格式统一后推送至前端，用户看到的每一条赛况、统计或预告都经过结构化清洗，减少噪音干扰。稳定入口的意义，在于将注意力还给内容本身。</p>
+        </div>
+        <div class="code-note">
+            <strong>⚡ 页面节奏</strong><br>
+            分段加载 + 懒渲染<br>
+            非核心资源延后请求<br>
+            首屏数据优先呈现
+        </div>
+    </div>
+</section>
+
+<!-- ===== FAQ 摘要 (以问答形式补充实用信息) ===== -->
+<section class="faq-summary container">
+    <h2>常见疑问 · 摘要</h2>
+    <div class="faq-grid">
+        <div class="faq-item">
+            <strong>如何快速找到特定体育项目？</strong>
+            <p>页面顶部设有分类筛选栏，按项目名称或赛事类型索引。同时支持拼音首字母快捷定位。</p>
+        </div>
+        <div class="faq-item">
+            <strong>数据更新频率是怎样的？</strong>
+            <p>核心赛事数据采用轮询+推送混合机制，常规更新间隔不超过3分钟，关键场次提供实时流。</p>
+        </div>
+        <div class="faq-item">
+            <strong>在手机端浏览体验如何？</strong>
+            <p>移动端布局重构了卡片堆叠顺序，重要信息上浮。交互区域增大，适配单手操作场景。</p>
+        </div>
+        <div class="faq-item">
+            <strong>是否有历史数据回溯功能？</strong>
+            <p>部分模块提供近7天历史数据面板，通过页面内日期选择器切换，满足短期对照需求。</p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 底部链接 ===== -->
+<footer class="footer-links container">
+    <p>页面结构设计与数据流始终围绕稳定与清晰展开。如需了解更多板块细节，可前往 <a href="https://indexs-milan.com">米兰体育</a> 浏览完整内容。</p>
+    <p class="copy-note">信息呈现力求客观 · 数据来源自公开赛事结构</p>
+</footer>
+
+</body>
+</html>
